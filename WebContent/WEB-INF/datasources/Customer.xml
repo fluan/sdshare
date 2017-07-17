@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datacollection xmlns="http://www.sdsharestudy.com/schema/">
+	<id>collection1</id>
+	<description>Customer</description>
+	<database>
+		<jdbcdriver>org.postgresql.Driver</jdbcdriver>
+		<connectionstring>jdbc:postgresql://localhost:5432/dvdrentaldb</connectionstring>
+		<user>postgres</user>
+		<password>1234</password>
+	</database>
+
+	<id-column>customer_id</id-column>
+	<snapshot-query>
+	<![CDATA[
+		select * from customer
+	]]>
+	</snapshot-query>
+	<fragments-query>
+	<![CDATA[
+		select customer_id id, last_update updated from customer where last_update >= ':since' and last_update < ':before'
+	]]>
+	</fragments-query>
+	<fragment-query>
+	<![CDATA[
+		select * from customer where customer_id = :id
+	]]>
+	</fragment-query>
+
+	<rdf s_ns="http://www.sdsharestudy.com/dvdrentaldb/customer/"
+		p_ns="http://www.sdsharestudy.com/dvdrentaldb/customer/schema/">
+		<triple>
+			<predicate>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</predicate>
+			<object type="iri">http://www.sdsharestudy.com/dvdrentaldb/Customer</object>
+		</triple>
+		<triple>
+			<predicate>store</predicate>
+			<object type="iri">http://www.sdsharestudy.com/dvdrentaldb/country/{{
+				store_id }}</object>
+		</triple>
+		<triple>
+			<predicate>fullname</predicate>
+			<object type="xsd:String">{{ first_name }} {{ last_name }}</object>
+		</triple>
+	</rdf>
+
+</datacollection>

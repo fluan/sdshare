@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datacollection xmlns="http://www.sdsharestudy.com/schema/">
+	<id>collection2</id>
+	<description>Address</description>
+	<database>
+		<jdbcdriver>org.postgresql.Driver</jdbcdriver>
+		<connectionstring>jdbc:postgresql://localhost:5432/dvdrentaldb</connectionstring>
+		<user>postgres</user>
+		<password>1234</password>
+	</database>
+
+	<id-column>address_id</id-column>
+	<snapshot-query>
+	<![CDATA[
+		select * from address
+	]]>
+	</snapshot-query>
+	<fragments-query>
+	<![CDATA[
+		select address_id id, last_update updated from address where last_update >= ':since' and last_update < ':before'
+	]]>
+	</fragments-query>
+	<fragment-query>
+	<![CDATA[
+		select * from address where address_id = :id
+	]]>
+	</fragment-query>
+
+	<rdf s_ns="http://www.sdsharestudy.com/dvdrentaldb/address/" p_ns="http://www.sdsharestudy.com/dvdrentaldb/address/schema/">
+		<triple>
+			<predicate>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</predicate>
+			<object type="iri">http://www.sdsharestudy.com/dvdrentaldb/Address</object>
+		</triple>
+		<triple>
+			<predicate>city</predicate>
+			<object type="iri">http://www.sdsharestudy.com/dvdrentaldb/city/{{
+				city_id }}</object>
+		</triple>
+	</rdf>
+
+</datacollection>

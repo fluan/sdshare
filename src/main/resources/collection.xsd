@@ -1,0 +1,57 @@
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" targetNamespace="http://www.sdsharestudy.com/schema/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="datacollection">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element type="xs:string" name="id" />
+				<xs:element type="xs:string" name="description" />
+				<xs:element name="database">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:string" name="jdbcdriver" />
+							<xs:element type="xs:string" name="connectionstring" />
+							<xs:element type="xs:string" name="user" />
+							<xs:element type="xs:string" name="password" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element type="xs:string" name="id-column" />
+				<xs:element type="xs:string" name="snapshot-query" />
+				<xs:element type="xs:string" name="fragments-query" />
+				<xs:element type="xs:string" name="fragment-query" />
+				<xs:element name="rdf">
+					<xs:annotation>
+						<xs:documentation><![CDATA[<sameAs ns="zzz2" valuetype='iri' >http://www.sdsharestudy.com/system1/customer/{{ id }}</sameAs>
+		<country valuetype='iri'>http://www.sdsharestudy.com/postgresql/country/{{ country_id }}</country>
+		<fullname valuetype="string">{{ firstname }} {{ lastname }}</fullname>]]></xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="triple" maxOccurs="unbounded"
+								minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:string" name="predicate" />
+										<xs:element name="object">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute type="xs:string" name="type"
+															use="optional" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute type="xs:string" name="s_ns" />
+						<xs:attribute type="xs:string" name="p_ns" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
